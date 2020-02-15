@@ -1,0 +1,16 @@
+{
+    "name": "Amor Y Algo Más | Blog",
+    "short_name": "Amor Y Algo Más | Blog",
+    "lang": "es"
+    "icons": [
+        {
+            "src": "/images/amym-icon.ico",
+            "sizes": "512x512",
+            "type": "image/x-icon"
+    }
+  ],
+    "start_url": "/",
+    "background-color": "#ccc",
+    "theme-color": "#f6f0e0",
+    "display": "standalone"
+}

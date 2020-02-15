@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height-device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="images/amym-icon.ico" type="image/x-icon">
+    <link rel="icon" href="images/amym-icon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/amym-icon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Amor Y Algo Más | Blog</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6610f2" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            color: #666666;
+            font-family: 'Helvetica', 'Verdana', sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        html {
+            overflow: show;
+        }
+
+        body {
+            align-content: stretch;
+            align-items: stretch;
+            background: #f6f0e0;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+        }
+
+        /**
+    * Header
+    */
+
+        .header {
+            align-content: center;
+            align-items: stretch;
+            background: #6610f2;
+            color: #fff;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            font-size: 20px;
+            height: 56px;
+            justify-content: flex-start;
+            padding: 16px 16px 0 16px;
+            position: static;
+            transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+            width: 100%;
+            will-change: transform;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            flex: 1;
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .header .powered-by {
+            color: white;
+            font-size: 0.6em;
+            text-decoration: none;
+        }
+
+        .main {
+            flex: 1;
+            overflow-x: auto;
+            overflow-y: auto;
+            padding-top: 0px;
+        }
+
+        .weather-card {
+            background: #fff;
+            border-radius: 0px;
+            box-shadow:
+                0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+            margin: 16px;
+            padding: 118px;
+            position: static;
+        }
+
+        .offline-panda {
+            display: block;
+            margin-bottom: 1.5em;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1 style="text-align: center;"> Amor Y Algo Más
+        </h1>
+    </header>
+    <main class="main">
+        <div class="weather-card">
+            <img style="align: center;" src="images/panda-offline.png" width="150" height="250" alt="Image placeholder" class="offline-panda">
+            <div>
+                <p style="text-align: center;"> Oops, parece que estás offline.</p>
+                <p style="text-align: center;">Esta app requiere conexión a internet.</p>
+            </div>
+        </div>
+    </main>
+</body></html>
