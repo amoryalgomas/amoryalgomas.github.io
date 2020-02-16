@@ -1,16 +1,64 @@
 {
     "name": "Amor Y Algo Más | Blog",
-    "short_name": "Amor Y Algo Más | Blog",
-    "lang": "es"
+    "short_name": "Amor Y Algo Más",
+    "description": "Amor y algo más es un espacio social dónde encontrarás artículos, escritos, noticias y más.",
+    "background_color": "#ffffff",
+    "theme_color": "#6610f2",
+    "orientation": "portrait",
+    "display": "standalone",
+    "start_url": "/?utm_source=web_app_manifest",
+    "scope": "/",
+    "lang": "es",
     "icons": [
         {
-            "src": "/images/amym-icon.ico",
+            "src": "./images/icons/ayam-icon_1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_512.png",
             "sizes": "512x512",
-            "type": "image/x-icon"
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+    },
+        {
+            "src": "./images/icons/ayam-icon_16.png",
+            "sizes": "16x16",
+            "type": "image/png"
     }
-  ],
-    "start_url": "/",
-    "background-color": "#ccc",
-    "theme-color": "#f6f0e0",
-    "display": "standalone"
+  ]
 }
