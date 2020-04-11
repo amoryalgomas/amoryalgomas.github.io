@@ -1,133 +1,59 @@
-// TODO: increase `version` number to force cache update when publishing a new release
-const version = 'v2';
+;
+//asignar un nombre y versión al cache
+const CACHE_NAME = 'v1_cache_ayam',
+  urlsToCache = [
+    '/',
+    '/manifest.json',
+    '/offline.html',
+    '/images/panda-offline.png',
+    '/images/icons/ayam-favicon.ico'
+  ]
 
-const config = {
-    cacheRemote: true,
-    version: version+'::',
-    preCachingItems: [
-        '/images/panda-offline.png',
-        '/offline.html',
-        '/manifest.json'
-        '/sw.js'
-    ],
-    blacklistCacheItems: [
-        'index.html',
-        'script.js'
-    ],
-    offlineImage: '<svg role="img" aria-labelledby="offline-title"' + ' viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">' + '<title id="offline-title">Offline</title>' + '<g fill="none" fill-rule="evenodd"><path fill="#121212" d="M0 0h400v300H0z"/>' + '<text fill="#aaa" font-family="monospace" font-size="32" font-weight="bold">' + '<tspan x="136" y="156">offline</tspan></text></g></svg>',
-    offlinePage: '/offline.html',
-    notFoundPage: '/404.html',
-    offlineTmdbResults: {
-        page: 1,
-        results: [{
-            "title": "Offline",
-            "poster_path": "https://tmdb.org/offline.jpg",
-            "backdrop_path": "https://tmdb.org/offline.jpg",
-            "overview": ""
-        }],
-        total_pages: 1,
-        total_results: 1
-    }
-};
+//durante la fase de instalación, generalmente se almacena en caché los activos estáticos
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache)
+          .then(() => self.skipWaiting())
+      })
+      .catch(err => console.log('Falló registro de cache', err))
+  )
+})
 
-function cacheName(key, opts) {
-    return `${opts.version}${key}`;
-}
+//una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
+self.addEventListener('activate', e => {
+  const cacheWhitelist = [CACHE_NAME]
 
-function addToCache(cacheKey, request, response) {
-    if (response.ok) {
-        const copy = response.clone();
-        caches.open(cacheKey).then(cache => {
-            cache.put(request, copy);
-        });
-    }
-    return response;
-}
-
-function fetchFromCache(event) {
-    return caches.match(event.request).then(response => {
-        if (!response) {
-            throw Error(`${event.request.url} not found in cache`);
-        } else if (response.status === 404) {
-            return caches.match(config.notFoundPage);
-        }
-        return response;
-    });
-}
-
-function offlineResponse(resourceType, opts) {
-    if (resourceType === 'content') {
-        return caches.match(opts.offlinePage);
-    }
-    if (resourceType === 'image') {
-        return new Response(opts.offlineImage, {
-           headers: { 'Content-Type': 'image/svg+xml' }
-        });
-    }
-    if (resourceType === 'tmdb') {
-        return new Response(JSON.stringify(opts.offlineTmdbResults), {
-            headers: { 'Content-Type': 'application/json' }
-        });
-    }
-    return undefined;
-}
-
-self.addEventListener('install', event => {
-    event.waitUntil(caches.open(
-        cacheName('static', config)
+  e.waitUntil(
+    caches.keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            //Eliminamos lo que ya no se necesita en cache
+            if (cacheWhitelist.indexOf(cacheName) === -1) {
+              return caches.delete(cacheName)
+            }
+          })
         )
-            .then(cache => cache.addAll(config.preCachingItems))
-            .then(() => self.skipWaiting())
-    );
-});
-self.addEventListener('activate', event => {
-    function clearCacheIfDifferent(event, opts) {
-        return caches.keys().then(cacheKeys => {
-            const oldCacheKeys = cacheKeys.filter(key => key.indexOf(opts.version) !== 0);
-            const deletePromises = oldCacheKeys.map(oldKey => caches.delete(oldKey));
-            return Promise.all(deletePromises);
-        });
-    }
-    event.waitUntil(
-        clearCacheIfDifferent(event, config)
-            .then(() => self.clients.claim())
-    );
-});
-self.addEventListener('fetch', event => {
-    const request = event.request;
-    const url = new URL(request.url);
-    if (request.method !== 'GET'
-        || (config.cacheRemote !== true && url.origin !== self.location.origin)
-        || (config.blacklistCacheItems.length > 0 && config.blacklistCacheItems.indexOf(url.pathname) !== -1)) {
-        // default browser behavior
-        return;
-    }
-    let cacheKey;
-    let resourceType = 'content';
-    if (/(.jpg|.jpeg|.webp|.png|.svg|.gif)$/.test(url.pathname)) {
-        resourceType = 'image';
-    } else if (/.\/fonts.(?:googleapis|gstatic).com/.test(url.origin)) {
-        resourceType = 'font';
-    } else if (url.origin === 'https://api.themoviedb.org') {
-        // The Movie DB json API
-        resourceType = 'tmdb';
-    }
-    cacheKey = cacheName(resourceType, config);
-    if (resourceType === 'content') {
-        // Network First Strategy
-        event.respondWith(
-            fetch(request)
-                .then(response => addToCache(cacheKey, request, response))
-                .catch(() => fetchFromCache(event))
-                .catch(() => offlineResponse(resourceType, config))
-        );
-    } else {
-        // Cache First Strategy
-        event.respondWith(
-            fetchFromCache(event)
-                .catch(() => fetch(request))
-                .then(response => addToCache(cacheKey, request, response))
-                .catch(() => offlineResponse(resourceType, config))
-        );
-    }
-});
+      })
+      // Le indica al SW activar el cache actual
+      .then(() => self.clients.claim())
+  )
+})
+
+//cuando el navegador recupera una url
+self.addEventListener('fetch', e => {
+  //Responder ya sea con el objeto en caché o continuar y buscar la url real
+  e.respondWith(
+    caches.match(e.request)
+      .then(res => {
+        if (res) {
+          //recuperar del cache
+          return res
+        }
+        //recuperar de la petición a la url
+        return fetch(e.request)
+      })
+  )
+})
