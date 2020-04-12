@@ -193,7 +193,7 @@ header .navbar .dropdown-menu a {
 }
 
 .top-bar .social a {
-	font-size: 23px;
+	font-size: 20px;
 	color: #fff;
 	opacity: .9;
 }
@@ -1989,7 +1989,7 @@ blockquote p {
 
 #loader .circular {
     -webkit-animation: loader-rotate 2s linear infinite;
-    animation: loader-rotate 1s linear infinite;
+    animation: loader-rotate 2s linear infinite;
     position: absolute;
     left: calc(50% - 24px);
     top: calc(50% - 24px);
