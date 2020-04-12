@@ -192,12 +192,33 @@ header .navbar .dropdown-menu a {
     padding: 10px 0;
 }
 
-.top-bar .social a,
+.top-bar .social a {
+	font-size: 23px;
+	color: #fff;
+	opacity: .9;
+}
+
+.top-bar .social .fa-twitter:hover {
+	color: deepskyblue;
+}
+
+.top-bar .social .fa-facebook:hover {
+	color: royalblue;
+}
+
+.top-bar .social .fa-instagram:hover {
+	background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .top-bar .search-icon a {
     color: #fff;
     opacity: .5;
     padding: 5px;
 }
+
 
 .top-bar .social a:hover,
 .top-bar .search-icon a:hover {
@@ -213,7 +234,7 @@ header .navbar .dropdown-menu a {
 }
 
 .navbar .container > div {
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #6610f2;
 }
 
 @media (max-width: 767.98px) {
@@ -344,14 +365,34 @@ header .navbar .dropdown-menu a {
 }
 
 .bio .bio-body .social a {
-    color: #000;
-    opacity: .5;
-    padding: 5px;
+	font-size: 20px;
+	color: black;
+    padding: 20px;
 }
 
 .bio .bio-body .social a:hover {
     opacity: 1;
 }
+
+.bio .bio-body .social .fa-facebook:hover {
+	color: royalblue;
+}
+
+.bio .bio-body .social .fa-twitter:hover {
+	color: deepskyblue;
+}
+
+.bio .bio-body .social .fa-instagram:hover {
+	background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bio .bio-body .social .fa-youtube-play:hover {
+	color: red;
+}
+
 .site-hero {
     background-size: cover;
     background-position: center center;
@@ -1185,7 +1226,7 @@ textarea.form-control {
     font-size: 18px;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #6610f2;
 }
 
 .tags {
@@ -1763,6 +1804,10 @@ textarea.form-control {
     display: block;
 }
 
+:hover {
+    opacity: 1;
+}
+
 .search-form .form-group {
     position: relative;
 }
@@ -1773,6 +1818,7 @@ textarea.form-control {
     padding: 15px 15px;
     border: none;
 }
+
 
 .search-form .icon {
     position: absolute;
@@ -1829,7 +1875,11 @@ blockquote p {
     background-position: center center;
     background-repeat: no-repeat;
     padding: 2em 0;
-    background: #262626;
+    background: #121212;
+}
+
+.bio .bio-body .social .fa-youtube-play:hover {
+	color: red;
 }
 
 .site-footer .post-entry-sidebar ul li a h4 {
@@ -1846,6 +1896,21 @@ blockquote p {
 
 .site-footer a:hover {
     opacity: .5;
+}
+
+.site-footer .fa-facebook:hover {
+	color: royalblue;
+}
+
+.site-footer .fa-twitter:hover {
+	color: deepskyblue;
+}
+
+.site-footer .fa-instagram:hover {
+	background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .site-footer h3 {
@@ -1924,7 +1989,7 @@ blockquote p {
 
 #loader .circular {
     -webkit-animation: loader-rotate 2s linear infinite;
-    animation: loader-rotate 2s linear infinite;
+    animation: loader-rotate 1s linear infinite;
     position: absolute;
     left: calc(50% - 24px);
     top: calc(50% - 24px);
